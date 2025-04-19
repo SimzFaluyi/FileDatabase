@@ -14,10 +14,10 @@ form.addEventListener("submit", (e) => {
   let apiURL;
 
   if (!isNaN(query)) {
-    // Treat as an Film ID Search
+    // Film ID search
     apiURL = `https://freetestapi.com/api/v1/movies/${query}`;
   } else {
-    // Treat as an Film Name Search
+    // Film Name search
     apiURL = `https://freetestapi.com/api/v1/movies?search=${query}`;
   }
 
@@ -29,30 +29,41 @@ form.addEventListener("submit", (e) => {
     .then(data => {
       results.innerHTML = "";
 
+      // If search returned a list
       if (Array.isArray(data) && data.length > 0) {
         data.forEach(movie => {
-          const div = document.createElement("div");
-          div.innerHTML = `
-            <h3 class="fade-in">${movie.title}</h3>
-            <p class="fade-in"><strong>Year:</strong> ${movie.year}</p>
-            <p class="fade-in"><strong>Genre:</strong> ${movie.genre}</p>
-            <p2 class="fade-in"><strong>Director:</strong> ${movie.director}</p>
-            <p3 class="fade-in"><strong>Plot:</strong> ${movie.plot}</p>
-            <p3 class="fade-in"><strong>Rating:</strong> ${movie.rating}/10</p>
-            <hr/>
-          `;
-          results.appendChild(div);
+            const div = document.createElement("div");
+            div.classList.add("result-item", "fade-in");
+            div.innerHTML = `
+              <h3>${movie.title}</h3>
+              <p><strong>Year:</strong> ${movie.year}</p>
+              <p><strong>Genre:</strong> ${movie.genre}</p>
+              <p><strong>Director:</strong> ${movie.director}</p>
+              <p><strong>Rating:</strong> ${movie.rating}/10</p>
+            `;
+            div.addEventListener("click", () => {
+                window.location.href = `movie.html?id=${movie.id}`;
+            });
+            results.appendChild(div);
         });
-      } else if (data.title) {
-        results.innerHTML = `
-          <h3>${data.title}</h3>
-          <p class="fade-in"><strong>Year:</strong> ${data.year}</p>
-          <p class="fade-in"><strong>Genre:</strong> ${data.genre}</p>
-          <p class="fade-in"><strong>Director:</strong> ${data.director}</p>
-          <p class="fade-in"><strong>Plot:</strong> ${data.plot}</p>
-          <p class="fade-in"><strong>Rating:</strong> ${data.rating}/10</p>
+      } 
+      // If search by ID returns one movie object
+      else if (data.title) {
+        const div = document.createElement("div");
+        div.classList.add("result-item", "fade-in");
+        div.innerHTML = `
+            <h3>${data.title}</h3>
+            <p><strong>Year:</strong> ${data.year}</p>
+            <p><strong>Genre:</strong> ${data.genre}</p>
+            <p><strong>Director:</strong> ${data.director}</p>
+            <p><strong>Rating:</strong> ${data.rating}/10</p>
         `;
-      } else {
+        div.addEventListener("click", () => {
+            window.location.href = `movie.html?id=${movie.id}`;
+        });
+        results.appendChild(div);
+      } 
+      else {
         results.innerHTML = "<p>No movie found.</p>";
       }
     })

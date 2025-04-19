@@ -5,21 +5,105 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Movie Details</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #dbeaf1;
+      color: #1d1a45;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: #f33535;
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      text-decoration: none;
+      color: #1d1a45;
+      font-weight: bold;
+      background-color: #f33535;
+      padding: 8px 12px;
+      border-radius: 4px;
+      color: white;
+    }
+
+    .back-link:hover {
+      background-color: #c12b2b;
+    }
+
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="logo-title">
-      <img src="logo.png" alt="WebTech Logo" class="logo" />
-      <h1 class="title">Film Database</h1>
-    </div>
-  </header>
+  <div class="container">
+    <a href="index.html" class="back-link">← Back to Search</a>
+    <h1 class="fade-in">Movie Details</h1>
+    <div id="movieDetails" class="fade-in">Loading...</div>
+  </div>
 
-  <main class="fade-in">
-    <div id="movie-details">
-      <p>Loading movie details...</p>
-    </div>
-  </main>
+  <script>
+    const detailsContainer = document.getElementById("movieDetails");
+    const params = new URLSearchParams(window.location.search);
+    const movieId = params.get("id");
 
-  <script src="movie.js"></script>
+    if (!movieId) {
+      detailsContainer.innerHTML = "<p>No movie ID provided.</p>";
+    } else {
+      const proxy = "https://cors-anywhere.herokuapp.com/";
+      const url = `https://freetestapi.com/api/v1/movies/${movieId}`;
+
+      fetch(proxy + url)
+        .then(res => {
+          if (!res.ok) throw new Error("Failed to fetch");
+          return res.json();
+        })
+        .then(data => {
+          if (!data.title) {
+            detailsContainer.innerHTML = "<p>Movie not found.</p>";
+            return;
+          }
+
+          detailsContainer.innerHTML = `
+            <h2>${data.title}</h2>
+            <p><strong>Year:</strong> ${data.year}</p>
+            <img src="${data.poster}"/>
+            <p><strong>Genre:</strong> ${data.genre}</p>
+            <p><strong>Director:</strong> ${data.director}</p>
+            <p><strong>Plot:</strong> ${data.plot}</p>
+            <p><strong>Rating:</strong> ${data.rating}/10</p>
+            <p><strong>Duration:</strong> ${data.runtime} minutes</p>
+            <p><strong>Actors:</strong> ${data.actors ? data.actors.join(", ") : "N/A"}</p>
+            <p><strong>Awards:</strong> ${data.awards}</p>
+            <p><strong>Country:</strong> ${data.country}</p>
+            <p><strong>Language:</strong> ${data.language}</p>
+            <p><strong>Box Office:</strong> ${data.boxOffice}</p>
+            <p><strong>Production:</strong> ${data.production}</p>
+            <p><strong>Website:</strong> <a href="${data.website}" target="_blank">${data.website}</a></p>
+            <p><strong>Trailer:</strong> <a href="${data.trailer}" target="_blank">Watch Trailer</a></p>
+          `;
+        })
+        .catch(err => {
+          console.error("Error fetching movie:", err);
+          detailsContainer.innerHTML = "<p>Error loading movie details.</p>";
+        });
+    }
+  </script>
 </body>
 </html>
