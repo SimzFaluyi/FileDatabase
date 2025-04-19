@@ -1,40 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Film Database</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Film Database | WebTech</title>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-    <header>
-        <h1>🎬 Film Database</h1>
-    </header>
+  <header class="site-header fade-in">
+    <div class="logo-title">
+        <img src="logo.png" alt="WebTech Logo" class="logo" />
+    </div>
+    <h1><i class="title">Welcome to WebTech</i></h1>
+    <p> You search it, We find it!</p>
 
-    <main>
-        <section id="search-section">
-            <form id="search-form">
-                <label for="movie-search">Search for a film:</label>
-                <input type="text" id="movie-search" name="movie-search" placeholder="Enter movie name..." required>
-                <button type="submit">Search</button>
-            </form>
-        </section>
+  </header>
 
-        <section id="results">
-            <h2>Search Results</h2>
-            <ul id="movie-list"></ul>
-        </section>
+  <main class="fade-in">
+    <section aria-labelledby="search-section">
+      <h2 id="search-section">Search a Film</h2>
+      <form id="searchForm">
+        <label for="searchInput">Enter a Film Title or ID Number</label>
+        <input type="text" id="searchInput" name="search" placeholder="e.g. Shawshank or 1" required />
+        <button type="submit">Search</button>
+      </form>
+    </section>
 
-        <section id="movie-details" hidden>
-            <h2>Movie Details</h2>
-            <div id="details-content"></div>
-        </section>
-    </main>
+    <section aria-labelledby="results">
+      <h2 id="results" class="fade-in"></h2>
+      <ul id="movieList" aria-live="polite"></ul>
+    </section>
+  </main>
 
-    <footer>
-        <p>&copy; 2025 Film Database | Made by Samson Faluyi</p>
-    </footer>
+  <footer>
+    <p> WebTech | A Film Database by Samson Faluyi</p>
+  </footer>
 
-    <script src="script.js"></script>
+  <script src="scripts.js"></script>  
 </body>
 </html>

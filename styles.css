@@ -1,80 +1,106 @@
-/* Global styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* Mobile-first styling */
 body {
     font-family: Arial, sans-serif;
     background-color: #dbeaf1;
     color: #1d1a45;
-    padding: 20px;
+    margin: 0;
+    padding: 0;
 }
 
-/* Header */
 header {
+    background-color: #dbeaf1;
     text-align: center;
-    margin-bottom: 2rem;
+    padding: 2em 1em;
 }
 
-/* Form */
-#search-form {
+main {
+    max-width: 600px;
+    margin: auto;
+    padding: 1em;
+}
+
+form {
     display: flex;
     flex-direction: column;
-    max-width: 400px;
-    margin: 0 auto 2rem auto;
+    gap: 0.75em;
+    margin-bottom: 2em;
 }
 
-#search-form input,
-#search-form button {
-    padding: 10px;
-    margin-top: 10px;
-    font-size: 1rem;
+input[type="text"] {
+padding: 0.5em;
+font-size: 1em;
 }
 
-#search-form button {
+button {
+    padding: 0.5em;
+    font-size: 1em;
     background-color: #f33535;
     color: white;
     border: none;
     cursor: pointer;
 }
 
-#search-form button:hover {
-    background-color: #d32f2f;
+button:hover {
+    background-color: #c22c2c;
 }
 
-/* Results and details */
-#movie-list {
+ul#movieList {
     list-style-type: none;
     padding: 0;
-    max-width: 600px;
-    margin: 0 auto;
 }
 
-#movie-list li {
-    background-color: white;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-left: 5px solid #1d1a45;
-    cursor: pointer;
+ul#movieList li {
+    background-color: #1d1a45;
+    margin-bottom: 1em;
+    padding: 1em;
+    border: 1px solid #1d1a45;
+    border-radius: 10px;
 }
 
-#movie-list li:hover {
-    background-color: #f0f0f0;
-}
-
-#details-content {
-    background-color: white;
-    padding: 20px;
-    max-width: 600px;
-    margin: 0 auto;
-    border-left: 5px solid #f33535;
-}
-
-/* Footer */
 footer {
+    background-color: #dbeaf1;
+    color: #1d1a45;
     text-align: center;
-    margin-top: 3rem;
-    font-size: 0.9rem;
+    padding: 1em;
+    margin-top: 2em;
 }
+
+.site-header {
+    background-color: #dbeaf1;
+    padding: 10px 20px;
+}
+
+.logo-title {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 150px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.title {
+    font-family: Arial, sans-serif;
+    color: #f33535;
+    font-size: 24px;
+    margin: 0;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Apply Fade-In to Key Elements */
+  .fade-in {
+    animation: fadeIn 1s ease-in-out;
+  }
