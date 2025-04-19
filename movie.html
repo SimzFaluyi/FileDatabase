@@ -14,12 +14,13 @@
     }
 
     .container {
-      max-width: 800px;
+      max-width: 1000px;
       margin: 0 auto;
     }
 
     h1 {
       color: #f33535;
+      margin-bottom: 20px;
     }
 
     .fade-in {
@@ -37,18 +38,73 @@
       display: inline-block;
       margin-bottom: 20px;
       text-decoration: none;
-      color: #1d1a45;
+      color: white;
       font-weight: bold;
       background-color: #f33535;
-      padding: 8px 12px;
+      padding: 8px 14px;
       border-radius: 4px;
-      color: white;
     }
 
     .back-link:hover {
       background-color: #c12b2b;
     }
 
+    .movie-layout {
+      display: flex;
+      flex-wrap: wrap;
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      gap: 20px;
+    }
+
+    .movie-poster {
+      flex: 1 1 250px;
+      max-width: 250px;
+    }
+
+    .movie-poster img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .movie-info {
+      flex: 2 1 500px;
+    }
+
+    .movie-info h2 {
+      margin-top: 0;
+      color: #1d1a45;
+    }
+
+    .movie-info p {
+      line-height: 1.6;
+    }
+
+    .movie-info a {
+      color: #f33535;
+      text-decoration: none;
+    }
+
+    .movie-info a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .movie-layout {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .movie-info {
+        text-align: center;
+      }
+
+      .movie-info p {
+        margin-bottom: 10px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -81,22 +137,27 @@
           }
 
           detailsContainer.innerHTML = `
-            <h2>${data.title}</h2>
-            <p><strong>Year:</strong> ${data.year}</p>
-            <img src="${data.poster}"/>
-            <p><strong>Genre:</strong> ${data.genre}</p>
-            <p><strong>Director:</strong> ${data.director}</p>
-            <p><strong>Plot:</strong> ${data.plot}</p>
-            <p><strong>Rating:</strong> ${data.rating}/10</p>
-            <p><strong>Duration:</strong> ${data.runtime} minutes</p>
-            <p><strong>Actors:</strong> ${data.actors ? data.actors.join(", ") : "N/A"}</p>
-            <p><strong>Awards:</strong> ${data.awards}</p>
-            <p><strong>Country:</strong> ${data.country}</p>
-            <p><strong>Language:</strong> ${data.language}</p>
-            <p><strong>Box Office:</strong> ${data.boxOffice}</p>
-            <p><strong>Production:</strong> ${data.production}</p>
-            <p><strong>Website:</strong> <a href="${data.website}" target="_blank">${data.website}</a></p>
-            <p><strong>Trailer:</strong> <a href="${data.trailer}" target="_blank">Watch Trailer</a></p>
+            <div class="movie-layout">
+              <div class="movie-poster">
+                <img src="${data.poster}" alt="${data.title} Poster"/>
+              </div>
+              <div class="movie-info">
+                <h2>${data.title} (${data.year})</h2>
+                <p><strong>Genre:</strong> ${Array.isArray(data.genre) ? data.genre.join(", ") : data.genre}</p>
+                <p><strong>Director:</strong> ${data.director}</p>
+                <p><strong>Actors:</strong> ${data.actors ? data.actors.join(", ") : "N/A"}</p>
+                <p><strong>Plot:</strong> ${data.plot}</p>
+                <p><strong>Rating:</strong> ${data.rating}/10</p>
+                <p><strong>Duration:</strong> ${data.runtime} minutes</p>
+                <p><strong>Awards:</strong> ${data.awards}</p>
+                <p><strong>Country:</strong> ${data.country}</p>
+                <p><strong>Language:</strong> ${data.language}</p>
+                <p><strong>Box Office:</strong> ${data.boxOffice}</p>
+                <p><strong>Production:</strong> ${data.production}</p>
+                <p><strong>Website:</strong> <a href="${data.website}" target="_blank">${data.website}</a></p>
+                <p><strong>Trailer:</strong> <a href="${data.trailer}" target="_blank">Watch Trailer</a></p>
+              </div>
+            </div>
           `;
         })
         .catch(err => {

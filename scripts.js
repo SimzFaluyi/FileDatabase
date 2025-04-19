@@ -59,7 +59,7 @@ form.addEventListener("submit", (e) => {
             <p><strong>Rating:</strong> ${data.rating}/10</p>
         `;
         div.addEventListener("click", () => {
-            window.location.href = `movie.html?id=${movie.id}`;
+            window.location.href = `movie.html?id=${data.id}`;
         });
         results.appendChild(div);
       } 
